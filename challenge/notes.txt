@@ -1,0 +1,32 @@
+Deves partilhar o exercício no github, 
+com sergio.cunha2@pt.bosch.com
+e com Christoph.Bauerdick@pt.bosch.com
+
+
+Todo:
+
+
+
+
+--------------------------------------------
+
+
+Fields structure:
+{
+	name: 'orderby',
+	label: 'Order by',
+	type: 'sort' | 'filter',
+	fieldType: 'input' | 'radio' | 'checkbox',
+	value: '' | [{value, checked}]		// can be single value or array of objects
+}
+
+
+
+Filters structure:
+{
+	[name]: {
+		type,
+		fieldType,
+		value: '' | [value, value]			// can be single value or array of values
+	}
+}

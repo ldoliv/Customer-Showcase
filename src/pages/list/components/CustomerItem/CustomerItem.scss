@@ -1,0 +1,19 @@
+.list-item {
+	position: relative;
+	border-radius: 7px;
+	font-size: 15px;
+	background-color: #fff;
+	border: 1px solid var(--gray-light);
+	cursor: pointer;
+	overflow: hidden;
+	text-decoration: none;
+
+	&.highlight {
+		border-width: 5px;
+		border-color: var(--bs-code-color);
+	}
+
+	.delete {
+		color: var(--red);
+	}
+}

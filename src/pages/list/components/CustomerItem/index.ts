@@ -1,0 +1,1 @@
+export {CustomerItem as default} from './CustomerItem';
