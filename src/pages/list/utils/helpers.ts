@@ -1,4 +1,4 @@
-import type {FieldValT, FilterValT, ICustomer, IField, IFieldBase, IFilters} from "shared/types/types";
+import type {FieldTypeT, FieldValsT, FieldValT, FilterValT, ICustomer, IField, IFieldBase, IFilters} from "shared/types/types";
 
 
 // type ObjectType = {
@@ -10,22 +10,26 @@ import type {FieldValT, FilterValT, ICustomer, IField, IFieldBase, IFilters} fro
 // export function filterItems(items: ICustomer[], filters: IFilters): ICustomer[] {
 export function filterItems(items: any[], filters: IFilters): ICustomer[] {
 
-
 	if (!Object.keys(filters).length) {
 		return items.slice();
 	}
 
 	// Filter
 	const filtered = items.filter(item => {
-		return Object.keys(filters).some(fieldName => {
+
+		let found = true;
+
+		Object.keys(filters).forEach(fieldName => {
 			const {fieldType, value} = filters[fieldName];
 
-			if (fieldType === 'toggle' && value) {
-				return item[fieldName] === value;
+			if (value && (fieldType === 'toggle' || fieldType === 'radio')) {
+				found &&= item[fieldName] === value;
 			}
 
-			return true;
 		})
+
+		return found;
+
 	});
 
 	return filtered;
@@ -42,10 +46,13 @@ export function buildFields(
 	const fieldsWithValues = fields.map(field => {
 
 		const {name, fieldType} = field;
-		let values: FieldValT = [];
+		let values: FieldValsT = [];
 
 		if (fieldType === 'toggle') {
-			values = [name]
+			values = [true]
+
+		} else if (fieldType === 'radio') {
+			values = getItemPropertyValues(name);
 		}
 
 		return {
@@ -58,18 +65,34 @@ export function buildFields(
 }
 
 
+
+export function getFieldCheckedVal(fieldType: FieldTypeT, fieldVal: FieldValT, filterVal: FilterValT) {
+
+	let checked = false;
+
+	if (fieldType === 'toggle' || fieldType === 'radio') {
+		checked = filterVal === fieldVal
+	}
+
+	return checked;
+}
+
+
 /*
 	Called when a field changes it's value,
 	returns a filter object
 */
-export function fieldToFilter(e: any, field: IFieldBase): IFilters {
+export function fieldToFilter(e: any, field: IField): IFilters {
 
-	const {name, fieldType} = field;
-	const {checked} = e.target;
+	const {checked, value: fieldVal} = e.target;
+	const {name, fieldType, values} = field;
 
 	let value = null;
 	if (fieldType === 'toggle') {
 		value = checked;
+
+	} else if (fieldType === 'radio') {
+		value = fieldVal;
 	}
 
 	return {
@@ -80,11 +103,3 @@ export function fieldToFilter(e: any, field: IFieldBase): IFilters {
 	}
 }
 
-export function getFieldCheckedVal(field: IFieldBase, filterVal: FilterValT) {
-	const {fieldType} = field;
-	let checked = false;
-	if (fieldType === 'toggle') {
-		checked = Boolean(filterVal);
-	}
-	return checked;
-}

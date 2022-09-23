@@ -1,30 +1,40 @@
 
 export type ICustomer = {
+	id: string,
 	firstName: string,
 	lastName: string,
 	birthDate: string,
 	email: string,
 	avatar: string,
 	hasContract: boolean,
-	id: string
+	gender: string,
 }
 
-type FieldTypeT = 'toggle' | 'radio' | 'checkbox'
-export type FieldValT = string[]
+
+// Fields
+// ----------------------------------------------
+
+export type FieldTypeT = 'toggle' | 'radio' | 'checkbox'
 
 export type IFieldBase = {
 	name: string,
 	label: string,
 	fieldType: FieldTypeT,
 }
+
+
+export type FieldValT = boolean | string				// <-
+export type FieldValsT = FieldValT[]
+
 export type IField = IFieldBase & {
-	values: FieldValT
+	values: FieldValsT
 }
 
 
+// Filters
+// ----------------------------------------------
 
-
-export type FilterValT = boolean
+export type FilterValT = boolean | string | undefined
 
 export type IFilters = {
 	[key: string]: {

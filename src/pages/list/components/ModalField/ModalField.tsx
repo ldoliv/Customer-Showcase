@@ -2,6 +2,7 @@ import React from "react";
 import './ModalField.scss';
 import {fieldToFilter, getFieldCheckedVal} from "pages/list/utils/helpers";
 import type {FilterValT, IField, IFilters} from "shared/types/types";
+import {capitalizeFirstLetter} from "shared/helpers";
 
 
 type IProps = {
@@ -18,6 +19,7 @@ export function ModalField({
 	
 	const {name, label, fieldType, values: fieldVals} = field;
 	const type = fieldType === 'toggle' ? 'checkbox' : fieldType;
+	const showGroupLabel = fieldType === 'toggle' ? false : true;
 
 
 	function handleOnChange(e: any) {
@@ -30,13 +32,18 @@ export function ModalField({
 		<div className="fields-ct col p-3" key={`val-${name}`}>
 			<div className="field-group">
 
+				{showGroupLabel && <div className="d-flex justify-content-between">
+					<div className="field-group-title ms-2">{label}</div>
+				</div>}
+
 				<div className="fields-list">
 					{fieldVals.map((fieldVal, index) => {
 
 						// Set checked based on the filter
-						let checked = getFieldCheckedVal(field, filterVal);
+						let checked = getFieldCheckedVal(fieldType, fieldVal, filterVal);
 
 						const id = `${name}-${index}`;
+						const fieldLabel = fieldType === 'toggle' ? label : capitalizeFirstLetter(fieldVal as string)
 
 						return (
 							<div key={id} className="field px-3 d-flex align-items-center">
@@ -47,7 +54,7 @@ export function ModalField({
 											className="form-check-input"
 											type={type}
 											name={name}
-											value={fieldVal}
+											value={fieldVal.toString()}
 											checked={checked}
 											onChange={handleOnChange}
 										/>
@@ -55,7 +62,7 @@ export function ModalField({
 								</div>
 
 								<label className="w-100 pe-2" htmlFor={id}>
-									{label}
+									{fieldLabel}
 								</label>
 								
 							</div>

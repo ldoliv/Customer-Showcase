@@ -2,7 +2,7 @@ import React from 'react';
 import axios from 'axios';
 import {config} from 'shared/constants/config';
 import {getStoredCustomers, storeCustomers} from 'shared/store/customers';
-import {excludeCustomer} from 'shared/helpers/customers';
+import {excludeCustomer, mapFields} from 'shared/helpers/customers';
 import {ICustomer} from 'shared/types/types';
 
 
@@ -48,8 +48,9 @@ export default function useCustomers() {
 				const result = await axios(API_URL);
 
 				if (!didCancel) {
-					storeCustomers(result.data);
-					dispatch({type: 'SUCCESS', payload: result.data});
+					const customers = mapFields(result.data);
+					storeCustomers(customers);
+					dispatch({type: 'SUCCESS', payload: customers});
 				}
 
 			} catch (error) {

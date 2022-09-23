@@ -1,0 +1,62 @@
+{
+  "id": 446398,
+  "num_rows": 50,
+  "file_format": "json",
+  "name": "My Users",
+  "array": true,
+  "columns": [
+    {
+      "name": "id",
+      "null_percentage": 0,
+      "type": "Row Number",
+      "formula": null
+    },
+    {
+      "name": "firstName",
+      "null_percentage": 0,
+      "type": "First Name",
+      "formula": null
+    },
+    {
+      "name": "lastName",
+      "null_percentage": 0,
+      "type": "Last Name",
+      "formula": null
+    },
+    {
+      "name": "birthDate",
+      "null_percentage": 0,
+      "type": "Datetime",
+      "min": "09/21/2021",
+      "max": "09/21/2022",
+      "format": "%Y-%m-%dT%H:%M:%SZ",
+      "formula": null
+    },
+    {
+      "name": "email",
+      "null_percentage": 0,
+      "type": "Email Address",
+      "formula": null
+    },
+    {
+      "name": "avatar",
+      "null_percentage": 0,
+      "type": "Avatar",
+      "height": 285,
+      "width": 285,
+      "formula": null
+    },
+    {
+      "name": "hasContract",
+      "null_percentage": 0,
+      "type": "Boolean",
+      "formula": null
+    },
+    {
+      "name": "gender",
+      "null_percentage": 0,
+      "type": "Gender",
+      "formula": null
+    }
+  ]
+}

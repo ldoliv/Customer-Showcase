@@ -29,12 +29,24 @@ export const getCustomerPropertyValues = (property: keyof ICustomer) => {
 	return []
 }
 
+export const mapFields = (customers: any[]): ICustomer[] => {
+	return customers.map(customer => ({
+		...customer,
+		id: customer.id.toString()
+	}))
+}
+
 export const getCustomerFilterFields = (): IFieldBase[] => {
 	return [
 		{
 			name: 'hasContract',
 			label: 'Has contract',
 			fieldType: 'toggle',
+		},
+		{
+			name: 'gender',
+			label: 'Gender',
+			fieldType: 'radio',
 		}
 	];
 }

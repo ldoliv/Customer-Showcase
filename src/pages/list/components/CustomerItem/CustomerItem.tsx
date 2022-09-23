@@ -18,7 +18,7 @@ export function CustomerItem({
 
 	const navigate = useNavigate();
 
-	const {firstName, lastName, birthDate, email, avatar, hasContract} = customer;
+	const {firstName, lastName, birthDate, email, avatar, hasContract, gender} = customer;
 	const isBirthdayThisMonth = isThisMonth(birthDate);
 	const highlight = isBirthdayThisMonth ? 'highlight' : '';
 
@@ -42,6 +42,7 @@ export function CustomerItem({
 					<div className="field-ct">Name: {firstName} {lastName}</div>
 					<div className="field-ct">Birthday: {formatBirthDate(birthDate)}</div>
 					<div className="field-ct">Email: {email}</div>
+					<div className="field-ct">Gender: {gender}</div>
 					<div className="field-ct hascontract">Contract: {hasContract ? <i className="fa-solid fa-check"></i> : <i className="fa-solid fa-xmark"></i>}</div>
 				</div>
 				<div className="col-auto d-flex align-items-center" onClick={handleOnDelete}>

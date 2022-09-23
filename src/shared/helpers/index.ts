@@ -7,8 +7,8 @@ export function unique(value: any, index: number, self: any[]) {
 	return self.indexOf(value) === index;
 }
 
-export const getUniquePropertyValues = <K extends keyof T, T>(property: K, items: T[]) => {
-	const values = items.map(item => item[property]).sort();
+export const getUniquePropertyValues = <K extends keyof T, T>(property: K, items: T[]): T[] => {
+	const values = items.map(item => item[property]).sort() as T[];
 	const uniqValues = values.filter(unique)
 	return uniqValues;
 }
